@@ -1,22 +1,21 @@
 # Generador de Rostros por Descripción Hablada  
-**Next.js + Speech-to-Text + Wolfram NLP + Gemini + Procesamiento Digital de Imágenes**
+**Next.js + Speech-to-Text + Wolfram NLP + Gemini**
 
-Este proyecto es un **generador de rostros** que recibe **descripciones habladas de personas**, las procesa mediante técnicas de **transformación de voz a texto**, **análisis en lenguaje natural**, y finalmente produce un **retrato dibujado** construido a partir de inteligencia artificial y procesamiento digital.
+Este proyecto es un **generador de rostros** que recibe **descripciones habladas de personas**, las procesa mediante técnicas de **transformación de voz a texto**, **análisis en lenguaje natural**, y finalmente produce un **retrato dibujado** construido a partir de inteligencia artificial.
 
-Su flujo completo va desde la voz del usuario → texto → extracción de rasgos → generación del rostro → estilización artística.
+Su flujo completo va desde la voz del usuario → texto → extracción de rasgos → generación del rostro.
 
 ---
 
 ## Características principales
 
-- **Entrada por voz** usando APIs de reconocimiento de voz.
+- **Entrada por voz** usando reconocimiento de voz.
 - **Conversión voz → texto** integrada en el front-end.
 - **Análisis del texto** y extracción de rasgos físicos con Wolfram Language (NLP).
 - **Generación de JSON estructurado** con las características detectadas.
 - **Generación del rostro** usando **Gemini 3.0**.
-- **Post-procesamiento digital** para transformar retratos realistas en retratos tipo dibujo.
 - **Interfaz moderna** construida con Next.js.
-- Flujo optimizado: voz → texto → JSON → retrato → estilo artístico.
+- Flujo optimizado: voz → texto → JSON → retrato con estilo artístico.
 
 ---
 
