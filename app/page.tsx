@@ -280,7 +280,7 @@ export default function Home() {
                       "Hombre de unos 20 años, cara diamante, ojos almendrados cafés, cejas pobladas, nariz mediana aguileña, labios gruesos, barbilla redonda, cabello café oscuro ondulado corto."
                     )
                   }
-                  className="text-xs text-gray-500 hover:text-gray-300 underline"
+                  className="hover:cursor-pointer text-xs text-gray-500 hover:text-gray-300 underline"
                 >
                   Cargar ejemplo
                 </button>
@@ -290,7 +290,7 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={isListening ? stopListening : startListening}
-                      className={`px-3 py-2 rounded-md text-xs font-medium flex items-center gap-2 ${
+                      className={`hover:cursor-pointer px-3 py-2 rounded-md text-xs font-medium flex items-center gap-2 ${
                         isListening
                           ? "bg-red-600 text-white"
                           : "bg-blue-600 text-white"
@@ -307,7 +307,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={resetText}
-                    className="px-3 py-2 rounded-md text-xs border border-gray-700 text-gray-300 hover:bg-gray-800"
+                    className="hover:cursor-pointer px-3 py-2 rounded-md text-xs border border-gray-700 text-gray-300 hover:bg-gray-800"
                   >
                     Limpiar
                   </button>
@@ -323,7 +323,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={processTextToFeatures}
-                className="px-5 py-2 rounded-md bg-green-600 text-white text-sm font-medium hover:bg-green-500"
+                className="hover:cursor-pointer px-5 py-2 rounded-md bg-green-600 text-white text-sm font-medium hover:bg-green-500"
                 disabled={!text.trim()}
               >
                 Enviar a Wolfram
@@ -467,7 +467,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setStep("input")}
-                className="px-4 py-2 rounded-md border border-gray-700 text-xs text-gray-300 hover:bg-gray-800"
+                className="hover:cursor-pointer px-4 py-2 rounded-md border border-gray-700 text-xs text-gray-300 hover:bg-gray-800"
               >
                 Volver a captura
               </button>
@@ -475,7 +475,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={handleConfirmAndGenerate}
-                className="px-5 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-500"
+                className="hover:cursor-pointer px-5 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-500"
               >
                 Confirmar y generar imagen
               </button>
@@ -512,7 +512,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setStep("verification")}
-                className="px-4 py-2 rounded-md border border-gray-700 text-xs text-gray-300 hover:bg-gray-800"
+                className="hover:cursor-pointer px-4 py-2 rounded-md border border-gray-700 text-xs text-gray-300 hover:bg-gray-800"
               >
                 Volver a verificación
               </button>
@@ -522,7 +522,7 @@ export default function Home() {
                   type="button"
                   onClick={handleDownload}
                   disabled={selectedImageIndex === null}
-                  className="px-4 py-2 rounded-md bg-green-600 disabled:bg-green-900/60 text-white text-xs font-medium"
+                  className="hover:cursor-pointer px-4 py-2 rounded-md bg-green-600 disabled:bg-green-900/60 text-white text-xs font-medium"
                 >
                   Descargar imagen
                 </button>
