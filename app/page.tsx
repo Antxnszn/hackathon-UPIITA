@@ -365,6 +365,34 @@ export default function Home() {
 
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
+                  Tono de piel
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.rostro?.tonoPiel ?? ""}
+                  onChange={(e) =>
+                    updateFeature("rostro", "tonoPiel", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Color de ojos
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ojos?.color ?? ""}
+                  onChange={(e) =>
+                    updateFeature("ojos", "color", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
                   Tipo de cejas
                 </label>
                 <input
@@ -377,6 +405,7 @@ export default function Home() {
                 />
               </div>
 
+              {/* Nariz */}
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
                   Tamaño de la nariz
@@ -393,6 +422,35 @@ export default function Home() {
 
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
+                  Forma de la nariz
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.nariz?.forma ?? ""}
+                  onChange={(e) =>
+                    updateFeature("nariz", "forma", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Boca */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Tamaño de la boca
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.boca?.tamaño ?? ""}
+                  onChange={(e) =>
+                    updateFeature("boca", "tamaño", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
                   Labios
                 </label>
                 <input
@@ -401,6 +459,136 @@ export default function Home() {
                   value={features.boca?.labios ?? ""}
                   onChange={(e) =>
                     updateFeature("boca", "labios", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Cabello */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Color de cabello
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.color ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "color", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Largo de cabello
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.largo ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "largo", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Densidad de cabello
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.densidad ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "densidad", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Estilo / peinado
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.estilo ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "estilo", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Cuerpo */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Complexión
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.complexion ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "complexion", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Postura
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.postura ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "postura", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Tono de piel (cuerpo)
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.tono ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "tono", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Peso aproximado
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.peso ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "peso", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Vestimenta */}
+              <div className="md:col-span-2">
+                <label className="block text-xs text-gray-500 mb-1">
+                  Tipo de ropa / vestimenta
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ropa ?? ""}
+                  onChange={(e) =>
+                    // Actualizamos la propiedad top-level 'ropa' directamente
+                    setFeatures((prev) => ({ ...prev, ropa: e.target.value }))
                   }
                 />
               </div>
