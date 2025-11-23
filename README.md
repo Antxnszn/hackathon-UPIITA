@@ -34,7 +34,7 @@ Su flujo completo va desde la voz del usuario → texto → extracción de rasgo
   - Entity extraction
   - NLP para rasgos físicos
   - Exportación de JSON
-- Gemini 3.0 (generación de imagen)
+- Gemini 3.0 (es necesaria una clave de API de Gemini)
 - Procesamiento digital:
   - Conversión a estilo dibujo
 
@@ -49,7 +49,7 @@ cd proyecto
 ### 2. Instalar dependencias (node/Next.js)
 ```
 npm install
-npm install next
+npm i next
 ```
 ### 3. Ejecutar el entorno
 ```
