@@ -23,7 +23,6 @@ Género: ${getFeature(features.genero)}
 
 Rostro:
 - Forma del rostro: ${getFeature(features.rostro?.forma)}
-- Tono de piel: ${getFeature(features.rostro?.tonoPiel)}
 - Textura de la piel: ${getFeature(features.rostro?.texturaPiel)}
 
 Ojos:

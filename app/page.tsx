@@ -8,9 +8,9 @@ import {
 } from "../services/wolframService";
 import { generateGeminiPrompt } from "../utils/promptUtils";
 import { ImageSelector } from "../components/ImageSelector";
+import { FeatureChecklist } from "../components/FeatureChecklist";
 
 type Step = "input" | "verification" | "generating" | "selection";
-
 
 // Reemplaza esto con la URL que te generó el SEGUNDO script de Wolfram (el de convert-to-sketch)
 const WOLFRAM_SKETCH_API = "https://www.wolframcloud.com/obj/rnavarroe1700/api/convert-to-sketch";
@@ -93,8 +93,8 @@ export default function Home() {
     }
   };
 
-//Construir prompt final y llamar a Gemini
-// ... dentro de tu componente Home() en page.tsx ...
+  //Construir prompt final y llamar a Gemini
+  // ... dentro de tu componente Home() en page.tsx ...
 
   const generatePortraits = async (overridePrompt?: string) => {
     const finalPrompt = overridePrompt ?? prompt;
@@ -102,7 +102,7 @@ export default function Home() {
 
     setStep("generating");
     setGenerationError(null);
-    setGeneratedImages([]); 
+    setGeneratedImages([]);
     setSelectedImageIndex(null);
 
     try {
@@ -129,12 +129,12 @@ export default function Home() {
       } else {
         throw new Error("No se recibieron imágenes de Gemini");
       }
-      
+
       console.log(`📸 [2/4] Gemini generó ${rawImages.length} imágenes.`);
 
       // --- PASO 2: Convertir a Sketch con Wolfram ---
       console.log("☁️ [3/4] Enviando a Wolfram Cloud para efecto Sketch...");
-      
+
       // Limpieza: quitamos el encabezado "data:image..."
       const cleanBase64List = rawImages.map((img) => img.split(",")[1]);
 
@@ -148,10 +148,10 @@ export default function Home() {
       const wolframResponse = await fetch(WOLFRAM_SKETCH_API, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json" // Header vital para evitar error 400
+          "Content-Type": "application/json", // Header vital para evitar error 400
         },
-        body: JSON.stringify({ 
-            images: cleanBase64List // La clave 'images' debe coincidir con {"images" -> "JSON"} en Wolfram
+        body: JSON.stringify({
+          images: cleanBase64List, // La clave 'images' debe coincidir con {"images" -> "JSON"} en Wolfram
         }),
       });
 
@@ -162,16 +162,17 @@ export default function Home() {
         setGeneratedImages(rawImages);
       } else {
         const sketchesBase64: string[] = await wolframResponse.json();
-        console.log(`✅ [4/4] Wolfram respondió con éxito. ${sketchesBase64.length} bocetos recibidos.`);
-        
+        console.log(
+          `✅ [4/4] Wolfram respondió con éxito. ${sketchesBase64.length} bocetos recibidos.`
+        );
+
         // Reconstruimos las imágenes
-        const finalImages = sketchesBase64.map(b64 => `data:image/png;base64,${b64}`);
+        const finalImages = sketchesBase64.map((b64) => `data:image/png;base64,${b64}`);
         setGeneratedImages(finalImages);
       }
 
       setSelectedImageIndex(0);
       setStep("selection");
-
     } catch (err: any) {
       console.error("❌ Error CRÍTICO en generatePortraits:", err);
       setGenerationError(err.message || "Error desconocido");
@@ -202,7 +203,7 @@ export default function Home() {
     document.body.removeChild(link);
   };
 
- // RENDER
+  // RENDER
 
   return (
     <main className="min-h-screen bg-black text-gray-100 font-sans">
@@ -343,6 +344,8 @@ export default function Home() {
               Revisa y completa las características antes de generar la imagen.
             </p>
 
+            <FeatureChecklist features={features} />
+
             {/* Campos básicos editables */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-900/60 border border-gray-800 rounded-xl p-4">
               <div>
@@ -355,20 +358,6 @@ export default function Home() {
                   value={features.rostro?.forma ?? ""}
                   onChange={(e) =>
                     updateFeature("rostro", "forma", e.target.value)
-                  }
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-gray-500 mb-1">
-                  Tono de piel
-                </label>
-                <input
-                  type="text"
-                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
-                  value={features.rostro?.tonoPiel ?? ""}
-                  onChange={(e) =>
-                    updateFeature("rostro", "tonoPiel", e.target.value)
                   }
                 />
               </div>
