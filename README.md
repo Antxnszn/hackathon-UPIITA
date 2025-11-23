@@ -25,7 +25,7 @@ Su flujo completo va desde la voz del usuario → texto → extracción de rasgo
 ### **Frontend**
 - Next.js
 - React
-- Speech-to-Text API
+- Speech-to-Text
 - TailwindCSS
 
 ### **Backend / Procesamiento**
@@ -35,8 +35,6 @@ Su flujo completo va desde la voz del usuario → texto → extracción de rasgo
   - NLP para rasgos físicos
   - Exportación de JSON
 - Gemini 3.0 (es necesaria una clave de API de Gemini)
-- Procesamiento digital:
-  - Conversión a estilo dibujo
 
 ## Instalación
 
