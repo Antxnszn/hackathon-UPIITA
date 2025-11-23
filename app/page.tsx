@@ -11,6 +11,10 @@ import { ImageSelector } from "../components/ImageSelector";
 
 type Step = "input" | "verification" | "generating" | "selection";
 
+
+// Reemplaza esto con la URL que te generó el SEGUNDO script de Wolfram (el de convert-to-sketch)
+const WOLFRAM_SKETCH_API = "https://www.wolframcloud.com/obj/rnavarroe1700/api/convert-to-sketch";
+
 export default function Home() {
   const {
     text,
@@ -89,9 +93,8 @@ export default function Home() {
     }
   };
 
-  // ---------------------------------------------------------------------------
-  // 2) Construir prompt final y llamar a Gemini
-  // ---------------------------------------------------------------------------
+//Construir prompt final y llamar a Gemini
+// ... dentro de tu componente Home() en page.tsx ...
 
   const generatePortraits = async (overridePrompt?: string) => {
     const finalPrompt = overridePrompt ?? prompt;
@@ -99,49 +102,79 @@ export default function Home() {
 
     setStep("generating");
     setGenerationError(null);
+    setGeneratedImages([]); 
+    setSelectedImageIndex(null);
 
     try {
+      // --- PASO 1: Generar imágenes realistas con Gemini ---
+      console.log("🚀 [1/4] Iniciando petición a Gemini...");
       const response = await fetch("/api/generate-portrait", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: finalPrompt }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.error || `Error ${response.status}: ${response.statusText}`
-        );
+        throw new Error(data.error || "Error en Gemini API");
       }
 
-      console.log("Respuesta de Gemini:", data);
-
-      // Aseguramos compatibilidad: si algún día decides devolver "image" en lugar de "result"
-      const result: string | undefined = data.result || data.image;
-      let imageUrl =
-        "https://placehold.co/400x400/222/fff?text=No+Image+Generated";
-
-      if (
-        result &&
-        (result.startsWith("http") || result.startsWith("data:image"))
-      ) {
-        imageUrl = result;
+      // Obtener array de imágenes
+      let rawImages: string[] = [];
+      if (data.results && Array.isArray(data.results)) {
+        rawImages = data.results;
+      } else if (data.result || data.image) {
+        rawImages = [data.result || data.image];
       } else {
-        console.warn("Gemini devolvió texto en lugar de imagen:", result);
-        imageUrl =
-          "https://placehold.co/400x400/222/fff?text=Texto+recibido+(ver+consola)";
+        throw new Error("No se recibieron imágenes de Gemini");
+      }
+      
+      console.log(`📸 [2/4] Gemini generó ${rawImages.length} imágenes.`);
+
+      // --- PASO 2: Convertir a Sketch con Wolfram ---
+      console.log("☁️ [3/4] Enviando a Wolfram Cloud para efecto Sketch...");
+      
+      // Limpieza: quitamos el encabezado "data:image..."
+      const cleanBase64List = rawImages.map((img) => img.split(",")[1]);
+
+      // Debug: Verificamos que no estemos mandando strings vacíos
+      console.log(`   -> Tamaño imagen 1: ${cleanBase64List[0].length} caracteres`);
+
+      const wolframFormData = new FormData();
+      wolframFormData.append("imagesJson", JSON.stringify(cleanBase64List));
+
+      // Asegúrate de tener la constante WOLFRAM_SKETCH_API definida arriba
+      const wolframResponse = await fetch(WOLFRAM_SKETCH_API, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json" // Header vital para evitar error 400
+        },
+        body: JSON.stringify({ 
+            images: cleanBase64List // La clave 'images' debe coincidir con {"images" -> "JSON"} en Wolfram
+        }),
+      });
+
+      console.log(`   -> Estatus Wolfram: ${wolframResponse.status}`);
+
+      if (!wolframResponse.ok) {
+        console.warn("⚠️ Fallo Wolfram. Mostrando originales de Gemini.");
+        setGeneratedImages(rawImages);
+      } else {
+        const sketchesBase64: string[] = await wolframResponse.json();
+        console.log(`✅ [4/4] Wolfram respondió con éxito. ${sketchesBase64.length} bocetos recibidos.`);
+        
+        // Reconstruimos las imágenes
+        const finalImages = sketchesBase64.map(b64 => `data:image/png;base64,${b64}`);
+        setGeneratedImages(finalImages);
       }
 
-      setGeneratedImages([imageUrl]);
+      setSelectedImageIndex(0);
       setStep("selection");
+
     } catch (err: any) {
-      console.error("Error generando imagen con Gemini:", err);
-      setGenerationError(
-        err.message || "Error desconocido al generar la imagen"
-      );
+      console.error("❌ Error CRÍTICO en generatePortraits:", err);
+      setGenerationError(err.message || "Error desconocido");
       setStep("verification");
     }
   };
@@ -169,9 +202,7 @@ export default function Home() {
     document.body.removeChild(link);
   };
 
-  // ---------------------------------------------------------------------------
-  // RENDER
-  // ---------------------------------------------------------------------------
+ // RENDER
 
   return (
     <main className="min-h-screen bg-black text-gray-100 font-sans">

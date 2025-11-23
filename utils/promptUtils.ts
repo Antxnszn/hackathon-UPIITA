@@ -1,9 +1,9 @@
-import { WolframFeatures } from "../services/wolframService";
+import { PortraitFeatures } from "../services/nlpService";
 
 /**
  * Genera un prompt detallado para Gemini basado en las características extraídas.
  */
-export const generateGeminiPrompt = (features: WolframFeatures): string => {
+export const generateGeminiPrompt = (features: PortraitFeatures): string => {
   const getFeature = (
     value: string | null | undefined,
     fallback: string = "No especificado"
@@ -18,6 +18,8 @@ export const generateGeminiPrompt = (features: WolframFeatures): string => {
 
   return `
 Genera un retrato realista basado en la siguiente descripción física.
+
+Género: ${getFeature(features.genero)}
 
 Rostro:
 - Forma del rostro: ${getFeature(features.rostro?.forma)}
@@ -51,7 +53,7 @@ Fondo e iluminación:
 - Iluminación suave tipo estudio, sin sombras duras.
 
 Estilo:
-- Retrato realista, estilo retrato forense.
+- Retrato realista.
 - Proporciones humanas correctas.
 - Enfocado en el rostro y parte superior del torso.
 `.trim();
