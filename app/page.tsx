@@ -210,7 +210,7 @@ export default function Home() {
       <header className="border-b border-gray-800 bg-gray-900/60 backdrop-blur-md sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold tracking-tight text-white">
-            ForensicSketch AI
+            DeepSketch
           </h1>
           <span className="text-xs text-gray-500">
             Retratos hablados asistidos por IA
