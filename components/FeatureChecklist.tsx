@@ -8,7 +8,6 @@ interface FeatureChecklistProps {
 
 const REQUIRED_FEATURES = [
   { path: 'rostro.forma', label: 'Forma del rostro' },
-  { path: 'ojos.color', label: 'Color de ojos' },
   { path: 'ojos.forma', label: 'Forma de ojos' },
   { path: 'cejas.tipo', label: 'Tipo de cejas' },
   { path: 'nariz.forma', label: 'Forma de nariz' },

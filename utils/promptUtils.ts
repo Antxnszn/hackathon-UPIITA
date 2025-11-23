@@ -28,7 +28,6 @@ Rostro:
 Ojos:
 - Tamaño: ${getFeature(features.ojos?.tamaño)}
 - Forma: ${getFeature(features.ojos?.forma)}
-- Color: ${getFeature(features.ojos?.color)}
 
 Cejas:
 - Tipo: ${getFeature(features.cejas?.tipo)}

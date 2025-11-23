@@ -9,6 +9,7 @@ import {
 import { generateGeminiPrompt } from "../utils/promptUtils";
 import { ImageSelector } from "../components/ImageSelector";
 import { FeatureChecklist } from "../components/FeatureChecklist";
+import {CharacterFeaturesHelp} from "../components/CharacterFeaturesHelp"
 
 type Step = "input" | "verification" | "generating" | "selection";
 
@@ -58,10 +59,9 @@ export default function Home() {
 
   const basicFieldsMissing = () => {
     const rostroForma = features.rostro?.forma;
-    const ojosColor = features.ojos?.color;
     const cejasTipo = features.cejas?.tipo;
 
-    return !rostroForma || !ojosColor || !cejasTipo;
+    return !rostroForma || !cejasTipo;
   };
 
   // ---------------------------------------------------------------------------
@@ -263,6 +263,7 @@ export default function Home() {
               Usa el micrófono o escribe manualmente la descripción física del
               sujeto.
             </p>
+            <CharacterFeaturesHelp/>
 
             <div className="bg-gray-900/60 border border-gray-800 rounded-xl p-4 space-y-3">
               <textarea
@@ -358,20 +359,6 @@ export default function Home() {
                   value={features.rostro?.forma ?? ""}
                   onChange={(e) =>
                     updateFeature("rostro", "forma", e.target.value)
-                  }
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-gray-500 mb-1">
-                  Color de ojos
-                </label>
-                <input
-                  type="text"
-                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
-                  value={features.ojos?.color ?? ""}
-                  onChange={(e) =>
-                    updateFeature("ojos", "color", e.target.value)
                   }
                 />
               </div>
