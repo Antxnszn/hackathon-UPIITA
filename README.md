@@ -49,6 +49,9 @@ cd hackathon-UPIITA
 ### 2. Instalar dependencias (node/Next.js)
 ```
 npm i
+npm i next
+npm i react
+npm i --save-dev typescript @types/react @types/node
 ```
 ### 3. Ejecutar el entorno
 ```
