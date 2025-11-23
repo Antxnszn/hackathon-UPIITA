@@ -43,7 +43,7 @@ Su flujo completo va desde la voz del usuario → texto → extracción de rasgo
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/usuario/proyecto.git
+git clone https://github.com/Antxnszn/hackathon-UPIITA.git
 cd proyecto 
 ```
 ### 2. Instalar dependencias (node/Next.js)
