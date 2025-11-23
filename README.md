@@ -48,7 +48,7 @@ cd proyecto
 ```
 ### 2. Instalar dependencias (node/Next.js)
 ```
-npm install
+npm i
 npm i next
 ```
 ### 3. Ejecutar el entorno
