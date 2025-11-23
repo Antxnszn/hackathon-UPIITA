@@ -44,14 +44,16 @@ Su flujo completo va desde la voz del usuario → texto → extracción de rasgo
 
 ```bash
 git clone https://github.com/Antxnszn/hackathon-UPIITA.git
-cd proyecto 
+cd hackathon-UPIITA 
 ```
 ### 2. Instalar dependencias (node/Next.js)
 ```
 npm i
-npm i next
 ```
 ### 3. Ejecutar el entorno
 ```
 npm run dev
 ```
+## Nota:
+Es importante tener en cuenta que se debe tener una API_KEY previamente adquirida. Puedes obtenerla desde: https://aistudio.google.com/, en el apartado de generación de imagen. 
+Te pedirá una cuenta bancaria, pero se te otorgarán créditos completamente gratuitos de prueba.
