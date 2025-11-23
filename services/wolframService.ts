@@ -62,15 +62,19 @@ export const analyzeTextWithWolfram = async (
   }
 
   try {
+    const body = new URLSearchParams({ text });
+
     const response = await fetch(WOLFRAM_CLOUD_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: JSON.stringify({ text }),
+      body,
     });
 
     const result = await response.json();
+
+    console.log("Respuesta de Wolfram:", result); // 👈 para verificar qué llega
 
     if (!response.ok) {
       throw new Error(result?.error ?? "Error desconocido en Wolfram Cloud");
