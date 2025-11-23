@@ -23,15 +23,22 @@ Género: ${getFeature(features.genero)}
 
 Rostro:
 - Forma del rostro: ${getFeature(features.rostro?.forma)}
-- Tono de piel: ${getFeature(features.rostro?.tonoPiel)}
+- Mejillas y pómulos: ${getFeature(features.rostro?.mejillas)}
+- Mandíbula: ${getFeature(features.rostro?.mandibula)}
+- Barbilla: ${getFeature(features.rostro?.barbilla)}
+- Espacio desde la línea del cabello a las cejas: ${getFeature(features.rostro?.espacio)}
 - Textura de la piel: ${getFeature(features.rostro?.texturaPiel)}
 
 Ojos:
+- Espacio entre los ojos: ${getFeature(features.ojos?.espacio)}
 - Tamaño: ${getFeature(features.ojos?.tamaño)}
 - Forma: ${getFeature(features.ojos?.forma)}
 - Color: ${getFeature(features.ojos?.color)}
+- Pestañas: ${getFeature(features.ojos?.pestañas)}
+- Lentes o accesorios: ${getFeature(features.ojos?.lentes)}
 
 Cejas:
+- Densidad: ${getFeature(features.cejas?.densidad)}
 - Tipo: ${getFeature(features.cejas?.tipo)}
 
 Nariz:
@@ -41,6 +48,21 @@ Nariz:
 Boca:
 - Tamaño: ${getFeature(features.boca?.tamaño)}
 - Labios: ${getFeature(features.boca?.labios)}
+
+Cabello: 
+- Color: ${getFeature(features.cabello?.color)}
+- Largo: ${getFeature(features.cabello?.largo)}
+- Densidad: ${getFeature(features.cabello?.densidad)}
+- Estilo o peinado: ${getFeature(features.cabello?.estilo)}
+
+Cuerpo: 
+- Complexión: ${getFeature(features.cuerpo?.complexion)}
+- Postura: ${getFeature(features.cuerpo?.postura)}
+- Tono de piel: ${getFeature(features.cuerpo?.tono)}
+- Peso: ${getFeature(features.cuerpo?.peso)}
+
+Vestimenta: 
+- Tipo de ropa: ${getFeature(features.ropa)}
 
 ${
   extras
@@ -56,5 +78,7 @@ Estilo:
 - Retrato realista.
 - Proporciones humanas correctas.
 - Enfocado en el rostro y parte superior del torso.
+- Retrato tipo sketch
+
 `.trim();
 };

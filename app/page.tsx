@@ -93,8 +93,8 @@ export default function Home() {
     }
   };
 
-//Construir prompt final y llamar a Gemini
-// ... dentro de tu componente Home() en page.tsx ...
+  //Construir prompt final y llamar a Gemini
+  // ... dentro de tu componente Home() en page.tsx ...
 
   const generatePortraits = async (overridePrompt?: string) => {
     const finalPrompt = overridePrompt ?? prompt;
@@ -102,7 +102,7 @@ export default function Home() {
 
     setStep("generating");
     setGenerationError(null);
-    setGeneratedImages([]); 
+    setGeneratedImages([]);
     setSelectedImageIndex(null);
 
     try {
@@ -129,12 +129,12 @@ export default function Home() {
       } else {
         throw new Error("No se recibieron imágenes de Gemini");
       }
-      
+
       console.log(`📸 [2/4] Gemini generó ${rawImages.length} imágenes.`);
 
       // --- PASO 2: Convertir a Sketch con Wolfram ---
       console.log("☁️ [3/4] Enviando a Wolfram Cloud para efecto Sketch...");
-      
+
       // Limpieza: quitamos el encabezado "data:image..."
       const cleanBase64List = rawImages.map((img) => img.split(",")[1]);
 
@@ -148,10 +148,10 @@ export default function Home() {
       const wolframResponse = await fetch(WOLFRAM_SKETCH_API, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json" // Header vital para evitar error 400
+          "Content-Type": "application/json", // Header vital para evitar error 400
         },
-        body: JSON.stringify({ 
-            images: cleanBase64List // La clave 'images' debe coincidir con {"images" -> "JSON"} en Wolfram
+        body: JSON.stringify({
+          images: cleanBase64List, // La clave 'images' debe coincidir con {"images" -> "JSON"} en Wolfram
         }),
       });
 
@@ -162,10 +162,12 @@ export default function Home() {
         setGeneratedImages(rawImages);
       } else {
         const sketchesBase64: string[] = await wolframResponse.json();
-        console.log(`✅ [4/4] Wolfram respondió con éxito. ${sketchesBase64.length} bocetos recibidos.`);
-        
+        console.log(
+          `✅ [4/4] Wolfram respondió con éxito. ${sketchesBase64.length} bocetos recibidos.`
+        );
+
         // Reconstruimos las imágenes
-        const finalImages = sketchesBase64.map(b64 => `data:image/png;base64,${b64}`);
+        const finalImages = sketchesBase64.map((b64) => `data:image/png;base64,${b64}`);
         setGeneratedImages(finalImages);
       }
 
@@ -202,7 +204,7 @@ export default function Home() {
     document.body.removeChild(link);
   };
 
- // RENDER
+  // RENDER
 
   return (
     <main className="min-h-screen bg-black text-gray-100 font-sans">
@@ -359,16 +361,116 @@ export default function Home() {
                 />
               </div>
 
+              {/* Agregados: mejillas, mandíbula, barbilla, espacio, textura de piel */}
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
-                  Tono de piel
+                  Mejillas / pómulos
                 </label>
                 <input
                   type="text"
                   className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
-                  value={features.rostro?.tonoPiel ?? ""}
+                  value={features.rostro?.mejillas ?? ""}
                   onChange={(e) =>
-                    updateFeature("rostro", "tonoPiel", e.target.value)
+                    updateFeature("rostro", "mejillas", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Mandíbula
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.rostro?.mandibula ?? ""}
+                  onChange={(e) =>
+                    updateFeature("rostro", "mandibula", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Barbilla
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.rostro?.barbilla ?? ""}
+                  onChange={(e) =>
+                    updateFeature("rostro", "barbilla", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Espacio línea cabello - cejas
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.rostro?.espacio ?? ""}
+                  onChange={(e) =>
+                    updateFeature("rostro", "espacio", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Textura de la piel
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.rostro?.texturaPiel ?? ""}
+                  onChange={(e) =>
+                    updateFeature("rostro", "texturaPiel", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Ojos: espacio, tamaño, forma, color, pestañas, lentes */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Espacio entre ojos
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ojos?.espacio ?? ""}
+                  onChange={(e) =>
+                    updateFeature("ojos", "espacio", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Tamaño de ojos
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ojos?.tamaño ?? ""}
+                  onChange={(e) =>
+                    updateFeature("ojos", "tamaño", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Forma de ojos
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ojos?.forma ?? ""}
+                  onChange={(e) =>
+                    updateFeature("ojos", "forma", e.target.value)
                   }
                 />
               </div>
@@ -389,6 +491,49 @@ export default function Home() {
 
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
+                  Pestañas
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ojos?.pestañas ?? ""}
+                  onChange={(e) =>
+                    updateFeature("ojos", "pestañas", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Lentes / accesorios en ojos
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ojos?.lentes ?? ""}
+                  onChange={(e) =>
+                    updateFeature("ojos", "lentes", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Cejas: densidad y tipo */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Densidad de cejas
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cejas?.densidad ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cejas", "densidad", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
                   Tipo de cejas
                 </label>
                 <input
@@ -401,6 +546,7 @@ export default function Home() {
                 />
               </div>
 
+              {/* Nariz */}
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
                   Tamaño de la nariz
@@ -417,6 +563,35 @@ export default function Home() {
 
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
+                  Forma de la nariz
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.nariz?.forma ?? ""}
+                  onChange={(e) =>
+                    updateFeature("nariz", "forma", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Boca */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Tamaño de la boca
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.boca?.tamaño ?? ""}
+                  onChange={(e) =>
+                    updateFeature("boca", "tamaño", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
                   Labios
                 </label>
                 <input
@@ -425,6 +600,136 @@ export default function Home() {
                   value={features.boca?.labios ?? ""}
                   onChange={(e) =>
                     updateFeature("boca", "labios", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Cabello */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Color de cabello
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.color ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "color", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Largo de cabello
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.largo ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "largo", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Densidad de cabello
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.densidad ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "densidad", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Estilo / peinado
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cabello?.estilo ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cabello", "estilo", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Cuerpo */}
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Complexión
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.complexion ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "complexion", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Postura
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.postura ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "postura", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Tono de piel (cuerpo)
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.tono ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "tono", e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Peso aproximado
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.cuerpo?.peso ?? ""}
+                  onChange={(e) =>
+                    updateFeature("cuerpo", "peso", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Vestimenta */}
+              <div className="md:col-span-2">
+                <label className="block text-xs text-gray-500 mb-1">
+                  Tipo de ropa / vestimenta
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-black/40 border border-gray-800 rounded px-2 py-1 text-sm text-gray-200"
+                  value={features.ropa ?? ""}
+                  onChange={(e) =>
+                    // Actualizamos la propiedad top-level 'ropa' directamente
+                    setFeatures((prev) => ({ ...prev, ropa: e.target.value }))
                   }
                 />
               </div>
