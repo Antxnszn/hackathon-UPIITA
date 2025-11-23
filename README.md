@@ -55,5 +55,5 @@ npm i
 npm run dev
 ```
 ## Nota:
-Es importante tener en cuenta que se debe tener una API_KEY previamente adquirida. Puedes obtenerla desde: https://aistudio.google.com/, en el apartado de generación de imagen. 
+Es importante tener en cuenta que se debe tener una API_KEY previamente adquirida y ponerla en un archivo .env.local bajo el nombre de GEMINI_API_KEY={LLENAR CON TU API}. Puedes obtenerla desde: https://aistudio.google.com/, en el apartado de generación de imagen. 
 Te pedirá una cuenta bancaria, pero se te otorgarán créditos completamente gratuitos de prueba.
